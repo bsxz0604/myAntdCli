@@ -1,0 +1,8 @@
+// 只包含 ts 与 tsx 文件，若使用项目默认的 tsconfig，则会一起 lint js 文件
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ]
+}
