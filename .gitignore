@@ -9,3 +9,12 @@
 # misc
 .DS_Store
 npm-debug.log*
+.cache-loader/
+.vscode
+
+./*.css
+
+.cache
+.dll
+src/utils/mock.js
+src/services/mock

@@ -7,8 +7,6 @@ const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack
 const config = require('./config')
 const isProd = config.env === 'production'
 
-const isCensor = process.env.CENSOR == 1
-
 function getDir (path) {
   return resolve(process.cwd(), 'src', path)
 }
@@ -16,12 +14,8 @@ function getDir (path) {
 module.exports = {
   output: {
     filename: '[name].js',
-
     path: resolve(process.cwd(), 'dist'),
-
     chunkFilename: '[name].chunk.js',
-
-    publicPath: isProd ? isCensor ? `https://static.muscdn.com/ops/${ config.commitId }/censor/`: `https://static.muscdn.com/ops/${ config.commitId }/` : '/'
   },
 
   module: {
@@ -89,7 +83,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(config.env),
       'process.env.DEVPROD': JSON.stringify(process.env.DEVPROD),
-      'process.env.CENSOR': JSON.stringify(process.env.CENSOR),
       'process.env.TARGET_LANGUAGE': JSON.stringify(process.env.TARGET_LANGUAGE)
     }),
 

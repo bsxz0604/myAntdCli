@@ -1,0 +1,17 @@
+
+[{
+  "to": "/dashboard",
+  "icon": "bars",
+  "text": "Dashboard"
+  },
+  {
+  "to": "/list",
+  "icon": "laptop",
+  "text": "List"
+  },
+  {
+  "to": "/login",
+  "icon": "laptop",
+  "text": "Login"
+  }
+]

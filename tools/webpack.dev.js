@@ -12,7 +12,6 @@ const pkg = require('../package.json')
 const common = require('./webpack.common')
 const theme = require('./theme.config')
 const config = require('./config')
-
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 const devConfig = {
@@ -35,18 +34,12 @@ const devConfig = {
     port: config.port,
     disableHostCheck: true,
     proxy: {
-      '/rest/ops': {
+      '/rest': {
         target: config.apiHost,
         changeOrigin: true,
         logLevel: 'debug',
         secure: false
-      },
-      '/rest/':{
-        target: config.censorHost,
-        changeOrigin: true,
-        logLevel: 'debug',
-        secure: false
-      },
+      }
     }
   },
 
@@ -120,7 +113,7 @@ const devConfig = {
           loader: 'less-loader',
           options: {
             sourcemap: true,
-            modifyVars: theme
+            // modifyVars: theme
           }
         }
       ],
@@ -137,7 +130,7 @@ const devConfig = {
           loader: 'less-loader',
           options: {
             sourcemap: true,
-            modifyVars: theme
+            // modifyVars: theme
           }
         }
       ],
@@ -178,6 +171,7 @@ const devConfig = {
         })
       },
     }),
+
   ]
 }
 

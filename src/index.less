@@ -1,0 +1,50 @@
+@import './components/vars.less';
+html, body, :global(#root) {
+  height: 100%;
+}
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.trigger:hover {
+  color: @theme-red;
+}
+
+:global{
+  .ant-menu.ant-menu-dark,
+  .ant-menu-submenu-popup.ant-menu-dark{
+    .ant-menu-item-selected{
+      background-color: @theme-red;
+      a:hover{
+        color: #fff;
+      }
+    }
+  }
+  .ant-form-item{
+    margin-bottom: 24px;
+  }
+}
+
+#root .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+.content{
+  margin: 24px 16px;
+  padding: 24px;
+  background: #fff;
+}
+.header{
+  background: #fff;
+  padding: 0;
+}
+.layout{
+  display: flex;
+  height: 100%;
+}

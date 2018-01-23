@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const tsImportPluginFactory = require('ts-import-plugin')
 
 const webpackConfig = require('./webpack.common')
-const theme = require('./theme.config')
+// const theme = require('./theme.config')
 const config = require('./config')
 
 const ExtraLib = new ExtractTextPlugin({
@@ -53,7 +53,7 @@ module.exports = merge(webpackConfig, {
               }
             },
             'postcss-loader',
-            `less-loader?${JSON.stringify({modifyVars: theme})}`
+            `less-loader`
           ]
         }),
         exclude: /node_modules/
@@ -65,12 +65,16 @@ module.exports = merge(webpackConfig, {
           use: [
             'css-loader?minimize',
             'postcss-loader',
-            `less-loader?${JSON.stringify({modifyVars: theme})}`
+            `less-loader`
           ]
         }),
         exclude: path => {
           return !/node_modules/.test(path)
         }
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       }
     ]
   },

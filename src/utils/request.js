@@ -1,30 +1,60 @@
-import fetch from 'dva/fetch';
+/* global window */
+import axios from 'axios'
+import * as config from './config'
+import qs from 'qs'
+import { message } from 'antd'
 
-function parseJSON(response) {
-  return response.json();
-}
+let timer = null;
 
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
+async function checkStatus(response, method = 'GET', shouldClosMessage) {
+  if (response.status == 200 ) {
+    if (method.toUpperCase() !== 'GET' || shouldClosMessage) {
+      if (timer) clearTimeout(timer)
+      timer = setTimeout(() => {
+        message.success('Operation is successful')
+      }, 400)
+    }
     return response;
   }
-
   const error = new Error(response.statusText);
+  error.status = response.status;
+  error.text = await response.text();
+  error['content-type'] = response.headers.get('content-type');
+  error.url = await response.url;
   error.response = response;
   throw error;
 }
 
-/**
- * Requests a URL, returning a promise.
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- * @return {object}           An object containing either "data" or "err"
- */
-export default function request(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
+function checkDataStatus (data) {
+  if (data.success === false) {
+    if (timer) clearTimeout(timer)
+    throw {
+      status: 'fail',
+      text: data.errorMsg
+    }
+  }
+}
+
+export default function request(url, options, shouldClosMessage) {
+  const headers = options && options.headers || {}
+  const METHOD = options && options.method || 'GET'
+  return axios({
+    url,
+    method: METHOD,
+    headers:{
+      ...headers
+    },
+    ...options
+  })
+  .then((res) =>
+    checkStatus(res, METHOD, shouldClosMessage)
+  )
+  .then(({ data }) => {
+    checkDataStatus(data)
+    return data
+  })
+  .catch(err => {
+    const errorInfo = err.response
+    return Promise.reject( errorInfo )
+  });
 }
