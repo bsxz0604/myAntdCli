@@ -8,10 +8,7 @@ export interface UserProps {
   description: string,
   regionTitle: string,
   fansNum: number,
-  musicalLikeNum: number,
   labels?: string[]
-  musicalNum?: string
-  musicalLikedNum?: string
   securityEmail?: string
   phone?: string
   privateAccount?: string

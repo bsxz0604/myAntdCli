@@ -4,7 +4,6 @@ import { Input, Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button/button'
 import { default as Form, FormComponentProps, FormProps } from 'antd/lib/form/Form'
 const styles = require('./styles.less')
-const logo = require('../../assets/logo-2.png')
 const { Item } = Form
 
 export interface LoginProps {
@@ -55,7 +54,7 @@ export class LoginCom extends PureComponent<Props> {
   get logoImg() {
     return(
       <Item className={ styles.formItem }>
-        <img src={ logo } />
+        <img src='https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=406270584,2276569185&fm=27&gp=0.jpg' />
       </Item>
     )
   }

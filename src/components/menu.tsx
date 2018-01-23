@@ -54,7 +54,6 @@ class MenuContainer extends React.PureComponent<P> {
     if (collapsed) {
       return (
         <span
-          style={ { textAlign: 'center', display: 'block' } }
           className={ styles.nameSmall }
         >
           <Badge status='success' />
